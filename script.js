@@ -12,6 +12,16 @@ const diceEL = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
+const btnSubmit = document.querySelector('.button-class');
+
+let submitFunction = 50;
+
+btnSubmit.addEventListener('click', function () {
+  submitFunction = Number(document.querySelector('#score-input').value);
+  if (submitFunction === 0 || submitFunction === NaN) {
+    submitFunction = 50;
+  }
+});
 
 let scores, currentScore, activePlayer, playing;
 
@@ -43,6 +53,7 @@ const switchPlayer = function () {
   player0EL.classList.toggle('player--active');
   player1EL.classList.toggle('player--active');
 };
+
 // Rolling the Dice functionality
 btnRoll.addEventListener('click', function () {
   if (playing) {
@@ -74,7 +85,7 @@ btnHold.addEventListener('click', function () {
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
     // 2. Check if Player's Score is >= 100
-    if (scores[activePlayer] >= 50) {
+    if (scores[activePlayer] >= submitFunction) {
       // Finish the game
       playing = false;
       diceEL.classList.add('hidden');
